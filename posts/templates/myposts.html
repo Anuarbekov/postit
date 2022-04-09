@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static%}
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>My Posts</title>
+    {% endblock %}
+    {% block links %}
+        <link rel="stylesheet" href="{% static 'posts/css/register.css' %}">
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+        {% if user.is_authenticated %}
+          <p class="nav-link">{{ user.username }}</p>
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+    {% endblock %}
+
+    {% block myposts %}
+         {% if myposts %}
+            {% for post in myposts %}
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.text }}</p>
+                <h6>Date added: {{ post.date }}</h6>
+                <hr>
+            {% endfor %}
+         {% else %}
+             <h1>No posts yet</h1>
+         {% endif %}
+    {% endblock %}
+
+</body>
